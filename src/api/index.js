@@ -40,3 +40,61 @@ export const reqUpdateCategory = ({categoryId,categoryName}) => ajax.post(
   '/manage/category/update',
   {categoryId,categoryName}
 )
+
+//获取商品分页列表
+export const reqProducts = (pageNum, pageSize) => ajax.get(
+  '/manage/product/list',
+  {
+    params:{
+      pageNum,
+      pageSize
+    }
+  }
+)
+
+//商品搜索分页
+export const reqSearchProducts = ({pageNum,pageSize,searchType,searchName}) => ajax.get(
+  '/manage/product/search',
+  {
+    params: {
+      pageNum,
+      pageSize,
+      [searchType]: searchName
+    }
+  }
+)
+
+export const reqUpdateStatus = (productId, status) => ajax.post(
+  '/manage/product/updateStatus',
+  { productId,status }
+)
+
+export const reqProduct = (productId) => ajax({
+  url: '/manage/product/info',
+  params: {
+    productId
+  }
+})
+
+export const reqCategory = (categoryId) => ajax({
+  url: '/manage/category/info',
+  params: {
+    categoryId
+  }
+})
+
+//删除图片
+export const reqDeleteImg = (name) => ajax({
+  url:'/manage/img/delete',
+  method: 'POST',
+  data: {
+    name
+  }
+})
+
+//添加或更新商品
+export const addOrUpdateProduct = product => ajax({
+  url: '/manage/product/' + (product._id ? 'update' : 'add'),
+  method: "POST",
+  data: product
+})

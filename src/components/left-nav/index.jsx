@@ -32,21 +32,58 @@ class LeftNav extends Component {
               </span>
             }
           >
-            {this.getMenuNodes(item.children)}
+            {this.getMenuNodes2(item.children)}
           </SubMenu>
         )
       }
     })
   }
 
+  getMenuNodes2 = (menuList) => {
+
+    const path = this.props.location.pathname
+    return menuList.reduce((pre,item) => {
+
+      if(!item.children){
+        pre.push(
+          <Item key={item.key}>
+            <Link to={item.key}>
+              <Icon type={item.icon} />
+              <span>{item.title}</span>
+            </Link>
+          </Item>
+        )
+      } else {
+        if(item.children.some(item => item.key===path)){
+          this.openKey = item.key
+        }
+        pre.push(
+          <SubMenu
+            key={item.key}
+            title={
+              <span>
+                <Icon type={item.icon}/>
+                <span>{item.title}</span>
+              </span>
+            }
+          >
+            {this.getMenuNodes2(item.children)}
+          </SubMenu>
+        )
+      }
+      return pre
+    },[])
+  }
+
   componentWillMount () {
-    this.menuNodes = this.getMenuNodes(menuList)
+    this.menuNodes = this.getMenuNodes2(menuList)
   }
 
   render() {
     const menuNodes = this.menuNodes
     const selectedKey = this.props.location.pathname
     const openKey = this.openKey
+    //console.log('left-nav render()', this.props.location.pathname, this.openKey)
     
     return (
       <div className="left-nav">
