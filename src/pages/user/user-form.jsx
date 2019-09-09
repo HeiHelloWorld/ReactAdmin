@@ -14,6 +14,7 @@ class UserForm extends Component {
   }
 
   componentWillMount() {
+    console.log(this.props.form)
     this.props.setForm(this.props.form)
   }
 

@@ -7,6 +7,7 @@ import { formateDate } from "../../utils/dateUtils"
 import AddForm from "./add-form"
 import AuthForm from "./auth-form"
 import { reqRoles, reqAddRole, reqUpdateRole } from "../../api"
+import memoryUtils from "../../utils/memoryUtils"
 
 export default class Role extends Component {
 
@@ -101,7 +102,7 @@ export default class Role extends Component {
     role.menus = this.authRef.current.getMenus()
     role.auth_time = Date.now()
 
-    role.auth_name = this.props.user.username
+    role.auth_name = memoryUtils.user.username
     console.log(this.props.user)
 
     const result = await reqUpdateRole(role)

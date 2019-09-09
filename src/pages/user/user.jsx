@@ -117,6 +117,7 @@ export default class User extends Component {
 
   //添加、更新用户
   AddOrUpdateUser = async () => {
+    console.log(this.form)
     const user = this.form.getFieldsValue()
     this.form.resetFields()
     if(this.user){
@@ -158,7 +159,7 @@ export default class User extends Component {
             onOk={this.AddOrUpdateUser}
           >
             <UserForm
-              setForm={(form) => this.from = form}
+              setForm={(form) => this.form = form}
               user={user}
               roles={roles}
             />
